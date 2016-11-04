@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Task</string>
+    <string name="rss">RSS</string>
+    <string name="backup">BACKUP</string>
+    <string name="restore">RESTORE</string>
+    <string name="exit">EXIT</string>
+</resources>
