@@ -24,6 +24,7 @@
         app:layout_heightPercent = "30%"
         android:layout_below="@+id/go_to_rss"
         android:layout_alignLeft="@+id/go_to_rss"
+        android:layout_alignStart="@+id/go_to_rss"
         app:layout_marginTopPercent = "3%">
         <TextView
             style="@style/TextStyle"
@@ -50,9 +51,9 @@
         android:layout_alignTop="@+id/go_to_restore"
         android:layout_alignLeft="@+id/go_to_backup"
         tools:ignore="RtlHardcoded">
-
         <TextView
             style="@style/TextStyle"
             android:text="@string/exit" />
     </com.fedukova.task.UI.CustomRelativeLayout>
+
 </android.support.percent.PercentRelativeLayout>

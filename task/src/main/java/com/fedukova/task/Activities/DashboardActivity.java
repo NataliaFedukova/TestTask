@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
+
 import com.fedukova.task.R;
 import com.fedukova.task.UI.CustomRelativeLayout;
 
@@ -23,15 +25,20 @@ public class DashboardActivity extends Activity {
         RssActivity_.intent(this).start();
     }
 
-    @ViewById(R.id.go_to_restore)
-    CustomRelativeLayout goToRestore;
+    @Touch(R.id.go_to_restore)
+    protected void restoreData() {
+        Toast.makeText(getApplicationContext(), "Restore from sd, rewrite db",Toast.LENGTH_LONG).show();}
 
-    @ViewById(R.id.go_to_backup)
-    CustomRelativeLayout goToBackup;
 
-    @ViewById(R.id.go_to_exit)
-    CustomRelativeLayout goToExit;
+    @Touch(R.id.go_to_backup)
+    protected void makeBackup(){
+        Toast.makeText(getApplicationContext(), "Save .json from db to sd",Toast.LENGTH_LONG).show();
+    }
 
+    @Touch(R.id.go_to_exit)
+    protected void exitApp(){
+        Toast.makeText(getApplicationContext(), "Close app",Toast.LENGTH_LONG).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
