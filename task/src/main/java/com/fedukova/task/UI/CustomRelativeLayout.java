@@ -8,10 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.fedukova.task.R;
 
-/**
- * Created by Хозяюшка on 02.11.2016.
- */
-
 public class CustomRelativeLayout extends PercentRelativeLayout{
 
     private LayoutInflater mInflater;

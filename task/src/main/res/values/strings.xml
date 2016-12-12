@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">Task</string>
-    <string name="rss">RSS</string>
-    <string name="backup">BACKUP</string>
-    <string name="restore">RESTORE</string>
-    <string name="exit">EXIT</string>
+    <string name="app_name">RSSReader</string>
+    <string name="rss" translatable="false">RSS</string>
+    <string name="backup" translatable="false">BACKUP</string>
+    <string name="restore" translatable="false">RESTORE</string>
+    <string name="exit" translatable="false">EXIT</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="internet_message">Enable Wi-fi connection?</string>
+    <string name="write_file_err">Can not save data on external storage</string>
 </resources>
