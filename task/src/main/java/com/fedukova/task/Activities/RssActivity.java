@@ -93,7 +93,6 @@ public class RssActivity extends Activity {
                                 public void onClick(DialogInterface dialog, int id) {
                                     WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
                                     wifi.setWifiEnabled(true);
-                                    ;
                                 }
                             });
         }
