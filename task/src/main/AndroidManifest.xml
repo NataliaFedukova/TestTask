@@ -26,10 +26,6 @@
         <activity android:name=".activities.RssActivity_" />
 
         <service android:name=".services.DownloadService_" />
-
-        <provider
-            android:authorities="com.fedukova.task.provider"
-            android:name=".business.DataProvider_"></provider>
     </application>
 
 </manifest>
