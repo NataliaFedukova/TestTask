@@ -97,7 +97,6 @@ public class RssActivity extends Activity {
                             });
         }
         confirmDialog.show();
-
     }
 
     @AfterViews
@@ -110,9 +109,8 @@ public class RssActivity extends Activity {
         }
         listLayoutManager = new LinearLayoutManager(this);
         listRecycleView.setLayoutManager(listLayoutManager);
-        listAdapter = new RecyclerViewAdapter(items);
+        listAdapter = new RecyclerViewAdapter(this,items);
         listRecycleView.setAdapter(listAdapter);
-
     }
 
     @Override
