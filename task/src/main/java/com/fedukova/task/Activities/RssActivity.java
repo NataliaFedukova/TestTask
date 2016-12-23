@@ -28,6 +28,7 @@ import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -57,10 +58,14 @@ public class RssActivity extends Activity {
     }
 
     @Receiver(actions = "com.fedukova.task.services.result",registerAt = Receiver.RegisterAt.OnStartOnStop)
-    void takeResult(@Receiver.Extra int result, Context context){
+    void takeResult(@Receiver.Extra int result, Context context)  {
         if(result == DownloadService.FILE_DOWNLOAD_SUCSESS) {
             items.clear();
-            items.addAll(GsonParser.takeRssListFromJson(path));
+            try {
+                items.addAll(GsonParser.takeRssListFromJson(path));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             listAdapter.notifyDataSetChanged();
         }
         else

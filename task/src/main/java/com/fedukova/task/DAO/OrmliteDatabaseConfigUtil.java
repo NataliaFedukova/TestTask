@@ -1,4 +1,4 @@
-package com.fedukova.task.business;
+package com.fedukova.task.DAO;
 
 import com.fedukova.task.entity.RSSItem;
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;

@@ -15,9 +15,6 @@ public class RssCrud implements Crud{
 
     public RssCrud(Context context) {
         helper = new DaoDBHelper(context);
-        /*
-        DBManager.init(context);
-        helper = DBManager.getInstance().getHelper();*/
     }
     @Override
     public int create(ArrayList<?> list) throws SQLException {
@@ -25,7 +22,8 @@ public class RssCrud implements Crud{
         for(int i = 0; i < list.size(); i++){
             RSSItem item = (RSSItem) list.get(i);
             int res = helper.getRSSDao().create(item);
-            count++;
+            if(res == 1 )
+                count++;
         }
         return count;
     }
@@ -57,8 +55,11 @@ public class RssCrud implements Crud{
         ArrayList<RSSItem> list = new ArrayList<>();
         List<RSSItem> rs = helper.getRSSDao().queryForAll();
         list.addAll(rs);
-        int count = helper.getRSSDao().delete(list);
-        return count;
+        if (list.size() != 0) {
+            int count = helper.getRSSDao().delete(list);
+            return count;
+        }
+        return 0;
     }
 
 }
