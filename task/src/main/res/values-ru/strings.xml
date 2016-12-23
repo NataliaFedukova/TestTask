@@ -5,4 +5,5 @@
     <string name="cancel">Отмена</string>
     <string name="internet_message">Включить передачу данных?</string>
     <string name="write_file_err">Невозможно сохранить данные</string>
+    <string name="file_not_found">Невозможно сохранить данные. Источник не найден!</string>
 </resources>

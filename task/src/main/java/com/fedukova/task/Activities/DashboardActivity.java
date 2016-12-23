@@ -1,7 +1,12 @@
 package com.fedukova.task.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.wifi.WifiManager;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -9,6 +14,7 @@ import com.fedukova.task.DAO.RssCrud;
 import com.fedukova.task.GSon.GsonParser;
 import com.fedukova.task.R;
 import com.fedukova.task.entity.RSSItem;
+import com.fedukova.task.services.DownloadService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -17,6 +23,7 @@ import org.androidannotations.annotations.Touch;
 import org.androidannotations.annotations.WindowFeature;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -24,6 +31,9 @@ import java.util.ArrayList;
 @EActivity(R.layout.activity_main)
 @WindowFeature(Window.FEATURE_NO_TITLE)
 public class DashboardActivity extends Activity {
+
+    private static final int FILE_NOT_FOUND = 1;
+
 
     private String PATH ;
     private static final String FILE_NAME = "rss.json";
@@ -38,20 +48,23 @@ public class DashboardActivity extends Activity {
     protected void restoreData() {
         try {
             rssCrud.clear();
-            rssCrud.create(GsonParser.takeRssListFromJson(PATH + File.separator + FILE_NAME));
+            int c = rssCrud.create(GsonParser.takeRssListFromJson(PATH + File.separator + FILE_NAME));
         } catch (SQLException e) {
-           // e.printStackTrace();
+            startDialog(e.getMessage(), e.getLocalizedMessage());
+        } catch (IOException e) {
+            startDialog(e.getMessage(), e.getLocalizedMessage());
         }
         Toast.makeText(getApplicationContext(), "Restore from sd, rewrite db",Toast.LENGTH_SHORT).show();}
 
 
     @Touch(R.id.go_to_backup)
     protected void makeBackup()  {
-        //RssCrud rssCrud = new RssCrud(this);
         try {
             GsonParser.writeRssListToFile((ArrayList< RSSItem>)rssCrud.read(),PATH + File.separator + FILE_NAME);
         } catch (SQLException e) {
-            e.printStackTrace();
+            startDialog(e.getMessage(), e.getLocalizedMessage());
+        } catch (IOException e) {
+            startDialog(e.getMessage(), e.getLocalizedMessage());
         }
         Toast.makeText(getApplicationContext(), "Save .json from db on sd",Toast.LENGTH_SHORT).show();
     }
@@ -71,4 +84,10 @@ public class DashboardActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }*/
+   private void startDialog(String s, String  t) {
+       AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
+       confirmDialog.setTitle(t).setMessage(s)
+               .setCancelable(true);
+       confirmDialog.show();
+   }
 }

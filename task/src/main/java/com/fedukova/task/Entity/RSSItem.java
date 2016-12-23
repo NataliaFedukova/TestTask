@@ -1,5 +1,6 @@
 package com.fedukova.task.entity;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -13,21 +14,24 @@ public class RSSItem {
     /*@DatabaseField(generatedId = true)
     private Long id;*/
 
+    @SerializedName("title")
     @DatabaseField(id = true, dataType = DataType.STRING)
     private String title;
 
+    @SerializedName("link")
     @DatabaseField(canBeNull = false, dataType = DataType.STRING)
     private String link;
 
+    @SerializedName("description")
     @DatabaseField(dataType = DataType.STRING)
     private String description;
 
     public RSSItem(){ }
 
-    public RSSItem(String title, String link,String description){
+    public RSSItem(String title,String description, String link){
         this.title = title;
-        this.link = link;
         this.description = description;
+        this.link = link;
     }
 
     public void setTitle(String title) {
