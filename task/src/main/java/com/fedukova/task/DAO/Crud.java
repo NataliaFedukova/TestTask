@@ -1,14 +1,14 @@
 package com.fedukova.task.DAO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
 public interface Crud{
-    int create(ArrayList<?> list) throws SQLException;
-    ArrayList<?> read() throws SQLException;
+    int create(List<?> list) throws SQLException;
+    List<?> read() throws SQLException;
     int update(Objects ob);
-    int delete(ArrayList<?> list) throws SQLException;
+    int delete(List<?> list) throws SQLException;
 
 }

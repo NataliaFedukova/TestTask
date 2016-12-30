@@ -14,15 +14,12 @@ public class RSSItem {
     /*@DatabaseField(generatedId = true)
     private Long id;*/
 
-    @SerializedName("title")
     @DatabaseField(id = true, dataType = DataType.STRING)
     private String title;
 
-    @SerializedName("link")
     @DatabaseField(canBeNull = false, dataType = DataType.STRING)
     private String link;
 
-    @SerializedName("description")
     @DatabaseField(dataType = DataType.STRING)
     private String description;
 
