@@ -8,7 +8,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.fedukova.task.DAO.RssCrud;
-import com.fedukova.task.gsonm.GsonParser;
+import com.fedukova.task.gson.GsonParser;
 import com.fedukova.task.R;
 
 import org.androidannotations.annotations.AfterViews;
