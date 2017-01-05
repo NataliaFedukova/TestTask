@@ -18,7 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.fedukova.task.DAO.RssCrud;
-import com.fedukova.task.GSon.GsonParser;
+import com.fedukova.task.gsonm.GsonParser;
 import com.fedukova.task.UI.ActionModeCallback;
 import com.fedukova.task.UI.RecyclerItemTouchListener;
 import com.fedukova.task.UI.RecyclerListener;

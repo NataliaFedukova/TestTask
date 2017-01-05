@@ -1,4 +1,4 @@
-package com.fedukova.task.GSon;
+package com.fedukova.task.gsonm;
 
 import android.annotation.TargetApi;
 import android.os.Build;
