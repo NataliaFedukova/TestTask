@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        <activity android:name=".activities.DashboardActivity_"
+        <activity android:name=".activitie.DashboardActivity_"
             android:theme="@style/Theme.AppCompat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RssActivity_"
+        <activity android:name=".activitie.RssActivity_"
             android:theme="@style/Theme.AppCompat"
             android:launchMode="singleTask"/>
 

@@ -46,9 +46,8 @@ public class DaoDBHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public Dao<RSSItem, Long> getRSSDao() throws SQLException {
-        if(rssDao == null) {
-            rssDao = getDao(RSSItem.class);
-        }
+        if(rssDao == null)  rssDao = getDao(RSSItem.class);
+
         return rssDao;
     }
 
@@ -57,8 +56,5 @@ public class DaoDBHelper extends OrmLiteSqliteOpenHelper {
         super.close();
         rssDao = null;
     }
-    //private static DaoDBHelper sDatabaseHelper;
-    //public static DaoDBHelper getInstance() {
-    //    return sDatabaseHelper;
-    //}
+
 }

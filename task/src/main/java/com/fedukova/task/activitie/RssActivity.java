@@ -1,21 +1,30 @@
-package com.fedukova.task.activities;
+package com.fedukova.task.activitie;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
+import com.fedukova.task.DAO.RssCrud;
 import com.fedukova.task.GSon.GsonParser;
+import com.fedukova.task.UI.ActionModeCallback;
+import com.fedukova.task.UI.RecyclerItemTouchListener;
+import com.fedukova.task.UI.RecyclerListener;
+import com.fedukova.task.UI.RecyclerViewAdapter;
 import com.fedukova.task.entity.RSSItem;
 import com.fedukova.task.R;
-import com.fedukova.task.UI.RecyclerViewAdapter;
-
 import com.fedukova.task.services.DownloadService;
 import com.fedukova.task.services.DownloadService_;
 
@@ -32,28 +41,39 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 @Fullscreen
 @EActivity(R.layout.activity_rss)
 @WindowFeature(Window.FEATURE_ACTION_BAR)
-public class RssActivity extends Activity {
+public class RssActivity extends AppCompatActivity {
 
-    private RecyclerView.Adapter listAdapter;
-    private RecyclerView.LayoutManager listLayoutManager;
+    protected LinearLayoutManager mLinearLayoutManager;
+    protected RecyclerViewAdapter mAdapter;
+    protected ArrayList<RSSItem> items;
+    private ActionMode mActionMode;
 
-    ArrayList<RSSItem> items;
+    private boolean isActionModeOn = false;
+    private RssCrud rssCrud;
 
     @Extra
     String path;
 
+    @ViewById(R.id.toolbar)
+    protected Toolbar toolbar;
+
+    @ViewById(R.id.progress_refr)
+    protected ProgressBar refreshProgress;
+
     @ViewById(R.id.recycler_view)
-    protected RecyclerView listRecycleView;
+    protected RecyclerView mRecyclerView;
 
     @ViewById(R.id.refresh_button)
     public ImageButton refButton;
 
     @Click(R.id.refresh_button)
     public void refreshButton(){
-        DownloadService_.intent(this).extra("path", path).start();
+        refreshProgress.setVisibility(View.VISIBLE);
+        DownloadService_.intent(this).extra("path",path).start();
         refButton.setEnabled(false);
     }
 
@@ -66,11 +86,12 @@ public class RssActivity extends Activity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            listAdapter.notifyDataSetChanged();
+            mAdapter.setRssItems(items);
         }
         else
             startDialog(result);
         refButton.setEnabled(true);
+        refreshProgress.setVisibility(View.INVISIBLE);
     }
 
     private void startDialog(int var) {
@@ -106,22 +127,60 @@ public class RssActivity extends Activity {
 
     @AfterViews
     protected void initList(){
-        items = new ArrayList<>();
-                try {
-            items.addAll((ArrayList<RSSItem>)DashboardActivity.rssCrud.read());
+        rssCrud = new RssCrud(getApplicationContext());
+        try {
+            items = (ArrayList<RSSItem>) rssCrud.read();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        listLayoutManager = new LinearLayoutManager(this);
-        listRecycleView.setLayoutManager(listLayoutManager);
-        listAdapter = new RecyclerViewAdapter(this,items);
-        listRecycleView.setAdapter(listAdapter);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mAdapter = new RecyclerViewAdapter();
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(RssActivity.this, mRecyclerView, new RecyclerListener() {
+            @Override
+            public void onClick(View view, int position) {
+                //If ActionMode not null select item
+                if (isActionModeOn)
+                    onListItemSelect(position);
+                else{
+                    Uri address = Uri.parse(items.get(position).getLink());
+                    Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
+                    view.getContext().startActivity(openlinkIntent);
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                //Select item on long click
+                if(!isActionModeOn)
+                    onListItemSelect(position);
+            }
+        }));
+        mAdapter.setRssItems(items);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-
+    private void onListItemSelect(int position) {
+        mAdapter.toggleSelection(position);//Toggle the selection
+        boolean hasCheckedItems = mAdapter.isAnyItemSelected();//Check if any items are already selected or not
+        if (hasCheckedItems && !isActionModeOn) {// there are some selected items, start the actionMode
+            isActionModeOn = true;
+            mActionMode = startSupportActionMode(new ActionModeCallback(RssActivity.this, mAdapter) {
+                @Override
+                public void onFinishActionMode() {
+                    isActionModeOn = false;
+                }
+            });
+        }
+        else if (!hasCheckedItems && isActionModeOn)  // there no selected items, finish the actionMode
+            mActionMode.finish();
+        if (mActionMode != null) //set action mode title on item selection
+            mActionMode.setTitle(String.valueOf(mAdapter.getSelectedCount()) + getResources().getString(R.string.selected));
+    }
 }

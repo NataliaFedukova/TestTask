@@ -1,4 +1,4 @@
-package com.fedukova.task.activities;
+package com.fedukova.task.activitie;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -28,7 +28,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private String PATH ;
     private static final String FILE_NAME = "rss.json";
-    public static RssCrud rssCrud;
+    private RssCrud rssCrud;
 
     @Touch(R.id.go_to_rss)
     protected void goToRss(){
@@ -38,6 +38,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Touch(R.id.go_to_restore)
     protected void restoreData() {
         try {
+
             rssCrud.clear();
             int c = rssCrud.create(GsonParser.takeRssListFromJson(PATH + File.separator + FILE_NAME));
             startDialog(String.valueOf(c) + " from 50 rows insertned");
@@ -57,7 +58,7 @@ public class DashboardActivity extends AppCompatActivity {
     @AfterViews
     protected void getExtras(){
         PATH = Environment.getExternalStorageDirectory().toString();
-        rssCrud = new RssCrud(this);
+        rssCrud = new RssCrud(getApplicationContext());
 
     }
    /* @Override
