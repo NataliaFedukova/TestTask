@@ -1,4 +1,4 @@
-package com.fedukova.task.entity;
+package com.fedukova.task.entityr;
 
 import com.google.gson.annotations.SerializedName;
 

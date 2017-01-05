@@ -1,4 +1,4 @@
-package com.fedukova.task.activitie;
+package com.fedukova.task.activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -23,7 +23,7 @@ import com.fedukova.task.UI.ActionModeCallback;
 import com.fedukova.task.UI.RecyclerItemTouchListener;
 import com.fedukova.task.UI.RecyclerListener;
 import com.fedukova.task.UI.RecyclerViewAdapter;
-import com.fedukova.task.entity.RSSItem;
+import com.fedukova.task.entityr.RSSItem;
 import com.fedukova.task.R;
 import com.fedukova.task.services.DownloadService;
 import com.fedukova.task.services.DownloadService_;
@@ -88,8 +88,7 @@ public class RssActivity extends AppCompatActivity {
             }
             mAdapter.setRssItems(items);
         }
-        else
-            startDialog(result);
+        else startDialog(result);
         refButton.setEnabled(true);
         refreshProgress.setVisibility(View.INVISIBLE);
     }
@@ -153,8 +152,7 @@ public class RssActivity extends AppCompatActivity {
             @Override
             public void onLongClick(View view, int position) {
                 //Select item on long click
-                if(!isActionModeOn)
-                    onListItemSelect(position);
+                if(!isActionModeOn) onListItemSelect(position);
             }
         }));
         mAdapter.setRssItems(items);

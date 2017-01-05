@@ -1,4 +1,4 @@
-package com.fedukova.task.activitie;
+package com.fedukova.task.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

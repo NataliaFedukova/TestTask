@@ -2,7 +2,7 @@ package com.fedukova.task.DAO;
 
 import android.content.Context;
 
-import com.fedukova.task.entity.RSSItem;
+import com.fedukova.task.entityr.RSSItem;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
