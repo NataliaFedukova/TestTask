@@ -1,4 +1,4 @@
-package com.fedukova.task.entityr;
+package com.fedukova.task.entity;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;

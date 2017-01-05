@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.fedukova.task.R;
-import com.fedukova.task.entityr.RSSItem;
+import com.fedukova.task.entity.RSSItem;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;

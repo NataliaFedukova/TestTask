@@ -2,8 +2,8 @@ package com.fedukova.task.GSon;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import com.fedukova.task.entityr.RSSItem;
-import com.fedukova.task.entityr.RSSItemList;
+import com.fedukova.task.entity.RSSItem;
+import com.fedukova.task.entity.RSSItemList;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.internal.bind.TypeAdapters;

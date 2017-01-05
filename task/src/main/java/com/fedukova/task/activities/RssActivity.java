@@ -23,7 +23,7 @@ import com.fedukova.task.UI.ActionModeCallback;
 import com.fedukova.task.UI.RecyclerItemTouchListener;
 import com.fedukova.task.UI.RecyclerListener;
 import com.fedukova.task.UI.RecyclerViewAdapter;
-import com.fedukova.task.entityr.RSSItem;
+import com.fedukova.task.entity.RSSItem;
 import com.fedukova.task.R;
 import com.fedukova.task.services.DownloadService;
 import com.fedukova.task.services.DownloadService_;

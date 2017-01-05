@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.fedukova.task.entityr.RSSItem;
+import com.fedukova.task.entity.RSSItem;
 import com.fedukova.task.R;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.fedukova.task.DAO;
 
-import com.fedukova.task.entityr.RSSItem;
+import com.fedukova.task.entity.RSSItem;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 
