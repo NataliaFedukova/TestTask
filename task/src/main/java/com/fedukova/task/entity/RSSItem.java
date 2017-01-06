@@ -8,7 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
  *
  */
 @DatabaseTable(tableName = "rss")
-public class RSSItem {
+public class RssItem {
 
     /*@DatabaseField(generatedId = true)
     private Long id;*/
@@ -22,9 +22,9 @@ public class RSSItem {
     @DatabaseField(dataType = DataType.STRING)
     private String description;
 
-    public RSSItem(){ }
+    public RssItem(){ }
 
-    public RSSItem(String title,String description, String link){
+    public RssItem(String title, String description, String link){
         this.title = title;
         this.description = description;
         this.link = link;

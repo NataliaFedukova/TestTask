@@ -7,4 +7,10 @@
     <string name="write_file_err">Невозможно сохранить данные</string>
     <string name="file_not_found">Невозможно сохранить данные. Источник не найден!</string>
     <string name="selected"> выбрано</string>
+    <string name="db_err">Ошибка записи в базу данных</string>
+    <string name="title">Ошибка</string>
+    <string name="delete">Удаление</string>
+    <string name="delete_ask">Вы действительно хотите удалить выбранные записи?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 </resources>

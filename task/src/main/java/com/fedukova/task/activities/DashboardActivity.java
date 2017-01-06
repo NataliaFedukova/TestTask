@@ -5,14 +5,12 @@ import android.content.DialogInterface;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
-import android.widget.Toast;
 ;
 import com.fedukova.task.DAO.DaoRss;
 import com.fedukova.task.DAO.HelperFactory;
-import com.fedukova.task.entity.RSSItem;
+import com.fedukova.task.entity.RssItem;
 import com.fedukova.task.gson.GsonParser;
 import com.fedukova.task.R;
-import com.j256.ormlite.dao.Dao;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -23,6 +21,12 @@ import org.androidannotations.annotations.WindowFeature;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+
+/** first activity
+ * goToRss - go to rss activity
+ * restoreData write json file to database
+ */
 
 @Fullscreen
 @EActivity(R.layout.activity_main)
@@ -41,17 +45,18 @@ public class DashboardActivity extends AppCompatActivity {
     @Touch(R.id.go_to_restore)
     protected void restoreData() {
         try {
+            List<RssItem> list = GsonParser.takeRssListFromJson(mPath + File.separator + FILE_NAME);
             DaoRss daoRss = HelperFactory.getHelper().getRSSDao();
             daoRss.deleteAllItems();
-            int count = daoRss.setAllItems(GsonParser.takeRssListFromJson(mPath + File.separator + FILE_NAME));
+            int count = daoRss.setAllItems(list);
             //rssCrud.clear();
             //int c = rssCrud.create(GsonParser.takeRssListFromJson(mPath + File.separator + FILE_NAME));
             startDialog(String.valueOf(count) + " from 50 rows insertned");
             //HelperFactory.releaseHelper();
         } catch (SQLException e) {
-            //startDialog(e.getMessage());
+            startDialog(getResources().getString(R.string.db_err));
         } catch (IOException e) {
-            startDialog(e.getMessage());
+            startDialog(getResources().getString(R.string.file_not_found));
         }
         //Toast.makeText(getApplicationContext(), "Restore from sd, rewrite db",Toast.LENGTH_SHORT).show();
         }
@@ -59,7 +64,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Touch(R.id.go_to_exit)
     protected void exitApp(){
-        Toast.makeText(getApplicationContext(), "Close app",Toast.LENGTH_SHORT).show();
+        this.finish();        //Toast.makeText(getApplicationContext(), "Close app",Toast.LENGTH_SHORT).show();
     }
 
     @AfterViews
@@ -74,15 +79,14 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }*/
    private void startDialog(String m) {
-       final AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
+       final AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
        confirmDialog.setMessage(m)
-               .setCancelable(true).setPositiveButton("OK",new DialogInterface.OnClickListener() {
+               .setCancelable(true).setNeutralButton("OK",new DialogInterface.OnClickListener() {
            public void onClick(DialogInterface dialog, int id) {
               dialog.dismiss();
            }
        });
        confirmDialog.show();
-
    }
 
     @Override

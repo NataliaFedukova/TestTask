@@ -2,7 +2,7 @@ package com.fedukova.task.DAO;
 
 import android.content.Context;
 
-import com.fedukova.task.entity.RSSItem;
+import com.fedukova.task.entity.RssItem;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,17 +14,17 @@ import java.util.Objects;
  */
 public class RssCrud implements Crud{
 
-    private DaoDBHelper helper;
+    private DaoDBHelper mHelper;
 
     public RssCrud(Context context) {
-        helper = new DaoDBHelper(context);
+        mHelper = new DaoDBHelper(context);
     }
     @Override
     public int create(List<?> list) throws SQLException {
         int count = 0;
         for(int i = 0; i < list.size(); i++){
-            RSSItem item = (RSSItem) list.get(i);
-            int res = helper.getRSSDao().create(item);
+            RssItem item = (RssItem) list.get(i);
+            int res = mHelper.getRSSDao().create(item);
             if(res == 1 )
                 count++;
         }
@@ -33,8 +33,8 @@ public class RssCrud implements Crud{
 
     @Override
     public List<?> read() throws SQLException {
-        ArrayList<RSSItem> list = new ArrayList<>();
-        List<RSSItem> rs = helper.getRSSDao().queryForAll();
+        ArrayList<RssItem> list = new ArrayList<>();
+        List<RssItem> rs = mHelper.getRSSDao().queryForAll();
         list.addAll(rs);
         return list;
     }
@@ -48,17 +48,17 @@ public class RssCrud implements Crud{
     public int delete(List<?> list) throws SQLException {
         int count = 0;
         for(int i = 0; i < list.size(); i++){
-            RSSItem item = (RSSItem) list.get(i);
-            int res = helper.getRSSDao().delete(item);
+            RssItem item = (RssItem) list.get(i);
+            int res = mHelper.getRSSDao().delete(item);
             count++;
         }
         return count;
     }
     public int clear() throws SQLException {
-        List<RSSItem> rs = helper.getRSSDao().queryForAll();
+        List<RssItem> rs = mHelper.getRSSDao().queryForAll();
         int count = 0;
         if (rs.size() != 0) {
-            count = helper.getRSSDao().delete(rs);
+            count = mHelper.getRSSDao().delete(rs);
         }
         return count;
     }

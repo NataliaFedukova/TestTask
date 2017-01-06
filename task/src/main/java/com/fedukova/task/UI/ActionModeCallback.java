@@ -11,12 +11,12 @@ import com.fedukova.task.R;
 
 public abstract class ActionModeCallback implements ActionMode.Callback{
 
-    private Context context;
-    private RecyclerViewAdapter rvAdapter;
+    private Context mContext;
+    //private RecyclerViewAdapter mAdapter;
 
-    public ActionModeCallback(Context context, RecyclerViewAdapter rvAdapter) {
-        this.context = context;
-        this.rvAdapter = rvAdapter;
+    //public ActionModeCallback(Context context, RecyclerViewAdapter rvAdapter) {\
+    public ActionModeCallback(Context context) {
+        this.mContext = context;
     }
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -32,17 +32,17 @@ public abstract class ActionModeCallback implements ActionMode.Callback{
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        rvAdapter.deleteRows();
-        mode.finish();
+        //mAdapter.deleteRows();
+        onDeleteItems(mContext);
         return false;
     }
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
         mode = null;
-        rvAdapter.removeSelection();
         onFinishActionMode();
     }
 
     public abstract void onFinishActionMode();
+    public abstract void onDeleteItems(Context context);
 }
