@@ -7,13 +7,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-
+        <item name="windowActionModeOverlay">true</item>
     </style>
 
-    <style name="ToolbarStyle">
-        <item name="android:windowActionModeOverlay">true</item>
-    </style>
     <style name="TextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -22,6 +18,18 @@
         <item name="android:textSize">28sp</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="@android:style/Theme.Dialog">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="android:buttonBarButtonStyle">@drawable/shape_not_pressed</item>
+
+        <!-- Used for the title and text -->
+
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <!-- Used for the background -->
+        <item name="android:windowBackground">@drawable/shape_not_pressed</item>
     </style>
 </resources>
 

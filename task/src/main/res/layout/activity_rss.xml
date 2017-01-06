@@ -4,44 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/Theme.AppCompat"
     android:orientation="vertical"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
     <android.support.v7.widget.Toolbar
+
         android:id="@+id/toolbar"
         android:layout_height="?android:actionBarSize"
         android:layout_width="match_parent"
-        >
+        app:layout_marginLeftPercent = "0%"
+        android:background="@color/colorNotPressed">
         <LinearLayout
             android:id="@+id/toolbar_normal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right"
-            android:visibility="visible">
+            >
             <ProgressBar
                 android:id="@+id/progress_refr"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:visibility="invisible"/>
             <ImageButton
-            android:layout_width="60sp"
-            android:layout_height="match_parent"
-            android:id="@+id/refresh_button"
-            android:background="@drawable/ic_autorenew_black_24dp"/>
+                android:layout_width="50sp"
+                android:layout_height="match_parent"
+                android:id="@+id/refresh_button"
+                android:background="@drawable/ic_autorenew_white_24dp" />
 
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar"
+        android:layout_alignParentStart="true"
+
         >
     </android.support.v7.widget.RecyclerView>
 

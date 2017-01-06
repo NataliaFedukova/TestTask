@@ -15,7 +15,9 @@ public class HelperFactory{
         databaseHelper = OpenHelperManager.getHelper(context, DaoDBHelper.class);
     }
     public static void releaseHelper(){
-        OpenHelperManager.releaseHelper();
-        databaseHelper = null;
+        if(databaseHelper != null) {
+            OpenHelperManager.releaseHelper();
+            databaseHelper = null;
+        }
     }
 }

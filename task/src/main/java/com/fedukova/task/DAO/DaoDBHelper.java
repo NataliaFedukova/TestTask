@@ -7,7 +7,6 @@ import com.fedukova.task.R;
 import com.fedukova.task.entity.RSSItem;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -18,7 +17,7 @@ public class DaoDBHelper extends OrmLiteSqliteOpenHelper {
     private static final String DB_NAME = "RSSdb";
     private static final int DB_VERSION = 1;
 
-    private Dao<RSSItem, Long> rssDao = null;
+    private DaoRss rssDao = null;
 
     DaoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION, R.raw.ormlite_config);
@@ -45,9 +44,8 @@ public class DaoDBHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public Dao<RSSItem, Long> getRSSDao() throws SQLException {
-        if(rssDao == null)  rssDao = getDao(RSSItem.class);
-
+    public DaoRss getRSSDao() throws SQLException {
+        if(rssDao == null)  rssDao = new DaoRss(getConnectionSource(), RSSItem.class);;
         return rssDao;
     }
 

@@ -27,7 +27,6 @@
         <activity android:name=".activities.RssActivity_"
             android:theme="@style/Theme.AppCompat"
             android:launchMode="singleTask"/>
-
         <service android:name=".services.DownloadService_" />
     </application>
 

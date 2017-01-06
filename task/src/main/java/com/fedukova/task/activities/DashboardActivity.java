@@ -6,10 +6,13 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.widget.Toast;
-
-import com.fedukova.task.DAO.RssCrud;
+;
+import com.fedukova.task.DAO.DaoRss;
+import com.fedukova.task.DAO.HelperFactory;
+import com.fedukova.task.entity.RSSItem;
 import com.fedukova.task.gson.GsonParser;
 import com.fedukova.task.R;
+import com.j256.ormlite.dao.Dao;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -26,28 +29,32 @@ import java.sql.SQLException;
 @WindowFeature(Window.FEATURE_NO_TITLE)
 public class DashboardActivity extends AppCompatActivity {
 
-    private String PATH ;
+    private String mPath ;
     private static final String FILE_NAME = "rss.json";
-    private RssCrud rssCrud;
+    //private RssCrud rssCrud;
 
     @Touch(R.id.go_to_rss)
     protected void goToRss(){
-        RssActivity_.intent(this).extra("path", PATH + File.separator + FILE_NAME).start();
+        RssActivity_.intent(this).extra("path", mPath + File.separator + FILE_NAME).start();
     }
 
     @Touch(R.id.go_to_restore)
     protected void restoreData() {
         try {
-
-            rssCrud.clear();
-            int c = rssCrud.create(GsonParser.takeRssListFromJson(PATH + File.separator + FILE_NAME));
-            startDialog(String.valueOf(c) + " from 50 rows insertned");
+            DaoRss daoRss = HelperFactory.getHelper().getRSSDao();
+            daoRss.deleteAllItems();
+            int count = daoRss.setAllItems(GsonParser.takeRssListFromJson(mPath + File.separator + FILE_NAME));
+            //rssCrud.clear();
+            //int c = rssCrud.create(GsonParser.takeRssListFromJson(mPath + File.separator + FILE_NAME));
+            startDialog(String.valueOf(count) + " from 50 rows insertned");
+            //HelperFactory.releaseHelper();
         } catch (SQLException e) {
             //startDialog(e.getMessage());
         } catch (IOException e) {
             startDialog(e.getMessage());
         }
-        Toast.makeText(getApplicationContext(), "Restore from sd, rewrite db",Toast.LENGTH_SHORT).show();}
+        //Toast.makeText(getApplicationContext(), "Restore from sd, rewrite db",Toast.LENGTH_SHORT).show();
+        }
 
 
     @Touch(R.id.go_to_exit)
@@ -56,9 +63,10 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     @AfterViews
-    protected void getExtras(){
-        PATH = Environment.getExternalStorageDirectory().toString();
-        rssCrud = new RssCrud(getApplicationContext());
+    protected void init(){
+        HelperFactory.setHelper(this);
+        mPath = Environment.getExternalStorageDirectory().toString();
+        //rssCrud = new RssCrud(getApplicationContext());
 
     }
    /* @Override
@@ -76,4 +84,17 @@ public class DashboardActivity extends AppCompatActivity {
        confirmDialog.show();
 
    }
+
+    @Override
+    public void onPause(){
+        HelperFactory.releaseHelper();
+        super.onPause();
+
+    }
+    @Override
+    public void onResume(){
+        HelperFactory.setHelper(this);
+        super.onResume();
+
+    }
 }

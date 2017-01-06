@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/** NOT USED
+ *
+ */
 public class RssCrud implements Crud{
 
     private DaoDBHelper helper;
