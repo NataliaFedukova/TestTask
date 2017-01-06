@@ -20,7 +20,7 @@ public class DaoRss extends BaseDaoImpl<RssItem, Long> {
     public int setAllItems(List<RssItem> items) throws SQLException {
         int count = 0;
         for(int i = 0; i < items.size(); i++){
-            RssItem item = items.get(i);
+            RssItem item = (RssItem) items.get(i);
             int res = this.create(item);
             if(res == 1 )
                 count++;
