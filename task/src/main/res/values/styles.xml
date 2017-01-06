@@ -20,16 +20,13 @@
         <item name="android:layout_centerVertical">true</item>
     </style>
 
-    <style name="MyAlertDialogStyle" parent="@android:style/Theme.Dialog">
-        <!-- Used for the buttons -->
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="android:buttonBarButtonStyle">@drawable/shape_not_pressed</item>
+    <style name="MyAlertDialogStyle">
 
-        <!-- Used for the title and text -->
-
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
-        <!-- Used for the background -->
         <item name="android:windowBackground">@drawable/shape_not_pressed</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>
 

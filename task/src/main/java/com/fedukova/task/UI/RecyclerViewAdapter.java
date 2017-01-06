@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.fedukova.task.entity.RSSItem;
+import com.fedukova.task.entity.RssItem;
 import com.fedukova.task.R;
 
 import java.util.ArrayList;
@@ -19,13 +19,13 @@ import java.util.List;
 //работа со списком
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RSSItemView>{
 
-    private List<RSSItem> content;
+    private List<RssItem> mContent;
     private SparseBooleanArray mSelectedItemsIds;
     private Context context;
 
 
     public RecyclerViewAdapter() {
-        content = new ArrayList<>();
+        mContent = new ArrayList<>();
         mSelectedItemsIds = new SparseBooleanArray();
     }
 
@@ -38,16 +38,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(final RSSItemView holder, final int position) {
-        final RSSItem item = content.get(position);
+        final RssItem item = mContent.get(position);
         holder.titleTextView.setText(Html.fromHtml(item.getTitle()));
         holder.descriptionTextView.setText(item.getDescription());
         holder.snapshotView.loadUrl(item.getLink());
         holder.itemView.setSelected(mSelectedItemsIds.get(position) ? true : false);
     }
 
-    public void setRssItems(ArrayList<RSSItem> newContent){
-        if(!content.isEmpty()){ content.clear();}
-        content.addAll(newContent);
+    public void setRssItems(ArrayList<RssItem> newContent){
+        if(!mContent.isEmpty()){ mContent.clear();}
+        mContent.addAll(newContent);
         notifyDataSetChanged();
     }
 
@@ -85,7 +85,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return content.size();
+        return mContent.size();
     }
 
     //Delete selected rows
@@ -96,7 +96,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             if (selected.valueAt(i)) {
                 //If current id is selected remove the item via key
                 int location = selected.keyAt(i);
-                content.remove(location);
+                mContent.remove(location);
                 notifyItemRemoved(location);//notify adapter
             }
         }

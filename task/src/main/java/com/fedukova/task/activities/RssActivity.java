@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,13 +17,12 @@ import android.widget.ProgressBar;
 
 import com.fedukova.task.DAO.DaoRss;
 import com.fedukova.task.DAO.HelperFactory;
-import com.fedukova.task.DAO.RssCrud;
+import com.fedukova.task.entity.RssItem;
 import com.fedukova.task.gson.GsonParser;
 import com.fedukova.task.UI.ActionModeCallback;
 import com.fedukova.task.UI.RecyclerItemTouchListener;
 import com.fedukova.task.UI.RecyclerListener;
 import com.fedukova.task.UI.RecyclerViewAdapter;
-import com.fedukova.task.entity.RSSItem;
 import com.fedukova.task.R;
 import com.fedukova.task.services.DownloadService;
 import com.fedukova.task.services.DownloadService_;
@@ -38,7 +36,6 @@ import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,7 +48,7 @@ public class RssActivity extends AppCompatActivity {
 
     protected LinearLayoutManager mLinearLayoutManager;
     protected RecyclerViewAdapter mAdapter;
-    protected ArrayList<RSSItem> mItems;
+    protected ArrayList<RssItem> mItems;
     private ActionMode mActionMode;
 
     private boolean mIsActionModeOn = false;
@@ -97,23 +94,16 @@ public class RssActivity extends AppCompatActivity {
 
     private void startDialog(int var) {
         AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
+        confirmDialog.setTitle(R.string.title);
         switch (var) {
             case DownloadService.INTERNET_CONNECTION_FAIL:
-                confirmDialog.setTitle(R.string.no_internet)
-                        .setMessage(R.string.internet_message)
-                        .setCancelable(true)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-                                wifi.setWifiEnabled(true);
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, null);
-                case DownloadService.FILE_DOWNLOAD_FAIL:
-                    confirmDialog.setTitle(R.string.write_file_err)
-                            .setCancelable(true)
-                            .setPositiveButton(R.string.ok, null);
+                confirmDialog.setMessage(R.string.no_internet);
+                break;
+            case DownloadService.FILE_DOWNLOAD_FAIL:
+                    confirmDialog.setMessage(R.string.write_file_err);
+                break;
         }
+        confirmDialog.setNeutralButton(R.string.ok, null);
         confirmDialog.show();
     }
 
@@ -123,13 +113,13 @@ public class RssActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         try {
             DaoRss daoRss = HelperFactory.getHelper().getRSSDao();
-            mItems = (ArrayList<RSSItem>) daoRss.getAllItems();
+            mItems = (ArrayList<RssItem>) daoRss.getAllItems();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         /*rssCrud = new RssCrud(getApplicationContext());
         try {
-            mItems = (ArrayList<RSSItem>) rssCrud.read();
+            mItems = (ArrayList<RssItem>) rssCrud.read();
         } catch (SQLException e) {
             e.printStackTrace();
         }*/
@@ -165,11 +155,35 @@ public class RssActivity extends AppCompatActivity {
         if (hasCheckedItems && !mIsActionModeOn) {// there are some selected items, start the actionMode
             mIsActionModeOn = true;
             mToolbar.setVisibility(View.GONE);
-            mActionMode = startSupportActionMode(new ActionModeCallback(RssActivity.this, mAdapter) {
+            mActionMode = startSupportActionMode(new ActionModeCallback(RssActivity.this) {
                 @Override
                 public void onFinishActionMode() {
                     mIsActionModeOn = false;
+                    mAdapter.removeSelection();
                     mToolbar.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onDeleteItems(Context context) {
+                    AlertDialog.Builder confirmDialog = new AlertDialog.Builder(context,R.style.MyAlertDialogStyle);
+                    confirmDialog.setTitle(R.string.delete)
+                            .setMessage(R.string.delete_ask)
+                            .setCancelable(true)
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mAdapter.deleteRows();
+                                    mActionMode.finish();
+
+                                }
+                            })
+                            .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mActionMode.finish();
+                                }
+                            });
+                    confirmDialog.show();
                 }
             });
         }

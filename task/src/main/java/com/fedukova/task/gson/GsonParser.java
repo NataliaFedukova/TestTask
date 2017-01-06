@@ -2,8 +2,8 @@ package com.fedukova.task.gson;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import com.fedukova.task.entity.RSSItem;
-import com.fedukova.task.entity.RSSItemList;
+import com.fedukova.task.entity.RssItem;
+import com.fedukova.task.entity.RssItemList;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.internal.bind.TypeAdapters;
@@ -17,13 +17,13 @@ import java.util.List;
 
 public class GsonParser {
 
-    public static List<RSSItem> takeRssListFromJson(String path) throws IOException {
-        List<RSSItem> items = new ArrayList<>();
+    public static List<RssItem> takeRssListFromJson(String path) throws IOException {
+        List<RssItem> items = new ArrayList<>();
         Gson gson = new Gson();
-        RSSItemList jsonElements = null;
+        RssItemList jsonElements = null;
         try {
             JsonObject jo = extractJsonFromFile(new File(path));
-            jsonElements = gson.fromJson(jo, RSSItemList.class);
+            jsonElements = gson.fromJson(jo, RssItemList.class);
         }
         finally {
         }
@@ -33,14 +33,14 @@ public class GsonParser {
 
 
     /*@TargetApi(Build.VERSION_CODES.KITKAT)
-    public static void writeRssListToFile(List<RSSItem> list, String path) throws IOException {
+    public static void writeRssListToFile(List<RssItem> list, String path) throws IOException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         Writer writer = null;
         try {
             writer = new FileWriter(path);
             writer.write("{\"item\":[/n");
-            for (RSSItem ri : list) {
+            for (RssItem ri : list) {
                 String temp = gson.toJson(ri);
                 writer.write(temp);
             }

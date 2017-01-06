@@ -7,14 +7,17 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**Listener on list item in rss
+ *
+ */
 public class RecyclerItemTouchListener implements RecyclerView.OnItemTouchListener{
 
-    private GestureDetector gestureDetector;
-    private RecyclerListener clickListener;
+    private GestureDetector mGestureDetector;
+    private RecyclerListener mClickListener;
 
     public RecyclerItemTouchListener(Context context, final RecyclerView recyclerView, final RecyclerListener clickListener) {
-        this.clickListener = clickListener;
-        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+        this.mClickListener = clickListener;
+        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 return true;
@@ -34,8 +37,8 @@ public class RecyclerItemTouchListener implements RecyclerView.OnItemTouchListen
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
 
         View child = rv.findChildViewUnder(e.getX(), e.getY());
-        if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
-            clickListener.onClick(child, rv.getChildPosition(child));
+        if (child != null && mClickListener != null && mGestureDetector.onTouchEvent(e)) {
+            mClickListener.onClick(child, rv.getChildPosition(child));
         }
         return false;
     }
