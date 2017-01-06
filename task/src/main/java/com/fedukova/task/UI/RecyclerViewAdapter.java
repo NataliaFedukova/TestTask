@@ -113,7 +113,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             titleTextView = (TextView) itemView.findViewById(R.id.title_text_view);
             descriptionTextView = (TextView) itemView.findViewById(R.id.description_text_view);
             snapshotView = (WebView) itemView.findViewById(R.id.preview_web_view);
-            webTopView = (View) itemView.findViewById(R.id.web_top_view);
+            webTopView = itemView.findViewById(R.id.web_top_view);
             webTopView.setOnClickListener(null);
         }
     }

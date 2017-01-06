@@ -46,9 +46,9 @@ import java.util.ArrayList;
 @WindowFeature(Window.FEATURE_ACTION_BAR)
 public class RssActivity extends AppCompatActivity {
 
-    protected LinearLayoutManager mLinearLayoutManager;
-    protected RecyclerViewAdapter mAdapter;
-    protected ArrayList<RssItem> mItems;
+    private LinearLayoutManager mLinearLayoutManager;
+    private RecyclerViewAdapter mAdapter;
+    private ArrayList<RssItem> mItems;
     private ActionMode mActionMode;
 
     private boolean mIsActionModeOn = false;
@@ -93,7 +93,7 @@ public class RssActivity extends AppCompatActivity {
     }
 
     private void startDialog(int var) {
-        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
+        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
         confirmDialog.setTitle(R.string.title);
         switch (var) {
             case DownloadService.INTERNET_CONNECTION_FAIL:
@@ -165,7 +165,7 @@ public class RssActivity extends AppCompatActivity {
 
                 @Override
                 public void onDeleteItems(Context context) {
-                    AlertDialog.Builder confirmDialog = new AlertDialog.Builder(context,R.style.MyAlertDialogStyle);
+                    AlertDialog.Builder confirmDialog = new AlertDialog.Builder(context);
                     confirmDialog.setTitle(R.string.delete)
                             .setMessage(R.string.delete_ask)
                             .setCancelable(true)

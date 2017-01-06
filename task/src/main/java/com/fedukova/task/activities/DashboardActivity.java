@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
-;
 import com.fedukova.task.DAO.DaoRss;
 import com.fedukova.task.DAO.HelperFactory;
 import com.fedukova.task.entity.RssItem;
@@ -51,7 +50,7 @@ public class DashboardActivity extends AppCompatActivity {
             int count = daoRss.setAllItems(list);
             //rssCrud.clear();
             //int c = rssCrud.create(GsonParser.takeRssListFromJson(mPath + File.separator + FILE_NAME));
-            startDialog(String.valueOf(count) + " from 50 rows insertned");
+            startDialog(String.valueOf(count) + getResources().getString(R.string.db_insert));
             //HelperFactory.releaseHelper();
         } catch (SQLException e) {
             startDialog(getResources().getString(R.string.db_err));
@@ -79,7 +78,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }*/
    private void startDialog(String m) {
-       final AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this, R.style.MyAlertDialogStyle);
+       final AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
        confirmDialog.setMessage(m)
                .setCancelable(true).setNeutralButton("OK",new DialogInterface.OnClickListener() {
            public void onClick(DialogInterface dialog, int id) {

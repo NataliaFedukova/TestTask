@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/Theme.AppCompat"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -15,10 +14,9 @@
         app:layout_marginLeftPercent = "0%"
         android:background="@color/colorNotPressed">
         <LinearLayout
-            android:id="@+id/toolbar_normal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="right"
+            android:gravity="end"
             >
             <ProgressBar
                 android:id="@+id/progress_refr"
@@ -39,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+
         android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true"
 

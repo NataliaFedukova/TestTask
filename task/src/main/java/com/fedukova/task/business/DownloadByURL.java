@@ -14,7 +14,7 @@ public class DownloadByURL {
      * @param path - PATH
      * @return true if OK, and false if not
      */
-    public static void loadFileOnSD(String url, String path) throws ConnectionFaildExeption, IOException {
+    public static void loadFileOnSD(String url, String path) throws ConnectionFailException, IOException {
         {
 
             URL url_ = new URL(url);
@@ -23,7 +23,7 @@ public class DownloadByURL {
                 connection.connect();
             }
             catch (IOException e) {
-                throw new ConnectionFaildExeption();
+                throw new ConnectionFailException();
             }
             InputStream inputStream = null;
             FileOutputStream fileOutputStream = null;

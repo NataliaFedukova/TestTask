@@ -73,8 +73,7 @@ public class GsonParser {
             }
             bufferedReader.close();
         }
-        JsonObject jo = (JsonObject) TypeAdapters.JSON_ELEMENT.fromJson(sb.toString());
-        return jo;
+        return (JsonObject) TypeAdapters.JSON_ELEMENT.fromJson(sb.toString());
     }
 
 }
