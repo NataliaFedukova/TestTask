@@ -1,4 +1,4 @@
-package com.fedukova.task.DAO;
+package com.fedukova.task.daolayer;
 
 import com.fedukova.task.entity.RssItem;
 import com.j256.ormlite.dao.BaseDaoImpl;

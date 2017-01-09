@@ -1,4 +1,4 @@
-package com.fedukova.task.DAO;
+package com.fedukova.task.daolayer;
 
 import java.sql.SQLException;
 import java.util.List;

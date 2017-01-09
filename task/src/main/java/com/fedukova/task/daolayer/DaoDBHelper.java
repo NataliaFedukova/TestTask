@@ -1,4 +1,4 @@
-package com.fedukova.task.DAO;
+package com.fedukova.task.daolayer;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
