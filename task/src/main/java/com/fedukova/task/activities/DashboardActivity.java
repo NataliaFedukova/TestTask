@@ -80,12 +80,9 @@ public class DashboardActivity extends AppCompatActivity {
    private void startDialog(String m) {
        final AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
        confirmDialog.setMessage(m)
-               .setCancelable(true).setNeutralButton("OK",new DialogInterface.OnClickListener() {
-           public void onClick(DialogInterface dialog, int id) {
-              dialog.dismiss();
-           }
-       });
-       confirmDialog.show();
+               .setCancelable(true).setNeutralButton("OK",null);
+       AlertDialog dialog = confirmDialog.create();
+       dialog.show();
    }
 
     @Override

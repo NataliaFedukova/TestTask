@@ -104,6 +104,7 @@ public class RssActivity extends AppCompatActivity {
                 break;
         }
         confirmDialog.setNeutralButton(R.string.ok, null);
+        confirmDialog.create();
         confirmDialog.show();
     }
 
@@ -183,6 +184,7 @@ public class RssActivity extends AppCompatActivity {
                                     mActionMode.finish();
                                 }
                             });
+                    confirmDialog.create();
                     confirmDialog.show();
                 }
             });
