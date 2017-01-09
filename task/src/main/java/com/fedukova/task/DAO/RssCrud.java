@@ -2,26 +2,29 @@ package com.fedukova.task.DAO;
 
 import android.content.Context;
 
-import com.fedukova.task.entity.RSSItem;
+import com.fedukova.task.entity.RssItem;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/** NOT USED
+ *
+ */
 public class RssCrud implements Crud{
 
-    private DaoDBHelper helper;
+    private DaoDBHelper mHelper;
 
     public RssCrud(Context context) {
-        helper = new DaoDBHelper(context);
+        mHelper = new DaoDBHelper(context);
     }
     @Override
-    public int create(ArrayList<?> list) throws SQLException {
+    public int create(List<?> list) throws SQLException {
         int count = 0;
         for(int i = 0; i < list.size(); i++){
-            RSSItem item = (RSSItem) list.get(i);
-            int res = helper.getRSSDao().create(item);
+            RssItem item = (RssItem) list.get(i);
+            int res = mHelper.getRSSDao().create(item);
             if(res == 1 )
                 count++;
         }
@@ -29,9 +32,9 @@ public class RssCrud implements Crud{
     }
 
     @Override
-    public ArrayList<?> read() throws SQLException {
-        ArrayList<RSSItem> list = new ArrayList<>();
-        List<RSSItem> rs = helper.getRSSDao().queryForAll();
+    public List<?> read() throws SQLException {
+        ArrayList<RssItem> list = new ArrayList<>();
+        List<RssItem> rs = mHelper.getRSSDao().queryForAll();
         list.addAll(rs);
         return list;
     }
@@ -42,24 +45,22 @@ public class RssCrud implements Crud{
     }
 
     @Override
-    public int delete(ArrayList<?> list) throws SQLException {
+    public int delete(List<?> list) throws SQLException {
         int count = 0;
         for(int i = 0; i < list.size(); i++){
-            RSSItem item = (RSSItem) list.get(i);
-            int res = helper.getRSSDao().delete(item);
+            RssItem item = (RssItem) list.get(i);
+            int res = mHelper.getRSSDao().delete(item);
             count++;
         }
         return count;
     }
     public int clear() throws SQLException {
-        ArrayList<RSSItem> list = new ArrayList<>();
-        List<RSSItem> rs = helper.getRSSDao().queryForAll();
-        list.addAll(rs);
-        if (list.size() != 0) {
-            int count = helper.getRSSDao().delete(list);
-            return count;
+        List<RssItem> rs = mHelper.getRSSDao().queryForAll();
+        int count = 0;
+        if (rs.size() != 0) {
+            count = mHelper.getRSSDao().delete(rs);
         }
-        return 0;
+        return count;
     }
 
 }

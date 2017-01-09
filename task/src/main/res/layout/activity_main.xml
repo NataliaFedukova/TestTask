@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/colorBackground"
-    android:id="@+id/activity_main"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.fedukova.task.UI.CustomRelativeLayout
-        app:layout_widthPercent="43%"
+        app:layout_widthPercent="90%"
         app:layout_heightPercent="30%"
         app:layout_marginLeftPercent = "5%"
         app:layout_marginTopPercent = "25%"
@@ -24,7 +23,7 @@
         app:layout_widthPercent = "43%"
         app:layout_heightPercent = "30%"
         android:layout_below="@+id/go_to_rss"
-        android:layout_alignLeft="@+id/go_to_rss"
+
         android:layout_alignStart="@+id/go_to_rss"
         app:layout_marginTopPercent = "3%">
         <TextView
@@ -33,25 +32,14 @@
     </com.fedukova.task.UI.CustomRelativeLayout>
 
     <com.fedukova.task.UI.CustomRelativeLayout
-        android:id="@+id/go_to_backup"
-        app:layout_widthPercent = "43%"
-        app:layout_heightPercent = "30%"
-        android:layout_alignTop="@+id/go_to_rss"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        app:layout_marginRightPercent = "5%">
-        <TextView
-            style="@style/TextStyle"
-            android:text="@string/backup" />
-    </com.fedukova.task.UI.CustomRelativeLayout>
-
-    <com.fedukova.task.UI.CustomRelativeLayout
         android:id="@+id/go_to_exit"
         app:layout_widthPercent = "43%"
         app:layout_heightPercent = "30%"
+        tools:ignore="RtlHardcoded"
         android:layout_alignTop="@+id/go_to_restore"
-        android:layout_alignLeft="@+id/go_to_backup"
-        tools:ignore="RtlHardcoded">
+        android:layout_alignRight="@+id/go_to_rss"
+        android:layout_alignEnd="@+id/go_to_rss"
+        app:layout_marginLeftPercent = "5%">
         <TextView
             style="@style/TextStyle"
             android:text="@string/exit" />

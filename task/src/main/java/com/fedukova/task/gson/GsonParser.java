@@ -1,36 +1,29 @@
-package com.fedukova.task.GSon;
+package com.fedukova.task.gson;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.util.Log;
-
-import com.fedukova.task.entity.RSSItem;
-import com.fedukova.task.entity.RSSItemList;
+import com.fedukova.task.entity.RssItem;
+import com.fedukova.task.entity.RssItemList;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.internal.bind.TypeAdapters;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Writer;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GsonParser {
 
-    public static ArrayList<RSSItem> takeRssListFromJson(String path) throws IOException {
-        ArrayList<RSSItem> items = new ArrayList<>();
+    public static List<RssItem> takeRssListFromJson(String path) throws IOException {
+        List<RssItem> items = new ArrayList<>();
         Gson gson = new Gson();
-        RSSItemList jsonElements = null;
+        RssItemList jsonElements = null;
         try {
             JsonObject jo = extractJsonFromFile(new File(path));
-            jsonElements = gson.fromJson(jo, RSSItemList.class);
+            jsonElements = gson.fromJson(jo, RssItemList.class);
         }
         finally {
         }
@@ -38,15 +31,16 @@ public class GsonParser {
         return items;
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static void writeRssListToFile(ArrayList<RSSItem> list, String path) throws IOException {
+
+    /*@TargetApi(Build.VERSION_CODES.KITKAT)
+    public static void writeRssListToFile(List<RssItem> list, String path) throws IOException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         Writer writer = null;
         try {
             writer = new FileWriter(path);
             writer.write("{\"item\":[/n");
-            for (RSSItem ri : list) {
+            for (RssItem ri : list) {
                 String temp = gson.toJson(ri);
                 writer.write(temp);
             }
@@ -61,7 +55,7 @@ public class GsonParser {
             }
         }
     }
-
+*/
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private static JsonObject extractJsonFromFile(File jsonFile) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -79,8 +73,7 @@ public class GsonParser {
             }
             bufferedReader.close();
         }
-        JsonObject jo = (JsonObject) TypeAdapters.JSON_ELEMENT.fromJson(sb.toString());
-        return jo;
+        return (JsonObject) TypeAdapters.JSON_ELEMENT.fromJson(sb.toString());
     }
 
 }

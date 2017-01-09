@@ -3,7 +3,7 @@ package com.fedukova.task.services;
 import android.app.IntentService;
 import android.content.Intent;
 
-import com.fedukova.task.business.ConnectionFaildExeption;
+import com.fedukova.task.business.ConnectionFailException;
 import com.fedukova.task.business.DownloadByURL;
 
 import org.androidannotations.annotations.EIntentService;
@@ -30,7 +30,7 @@ public class DownloadService extends IntentService {
         try {
             DownloadByURL.loadFileOnSD(URL, path);
             backIntent.putExtra("result",FILE_DOWNLOAD_SUCSESS);
-        }catch (ConnectionFaildExeption cfe){
+        }catch (ConnectionFailException cfe){
             backIntent.putExtra("result",INTERNET_CONNECTION_FAIL);
         }
         catch (IOException e) {

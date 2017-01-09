@@ -1,13 +1,18 @@
 <resources>
     <string name="app_name">RSSReader</string>
     <string name="rss" translatable="false">RSS</string>
-    <string name="backup" translatable="false">BACKUP</string>
     <string name="restore" translatable="false">RESTORE</string>
     <string name="exit" translatable="false">EXIT</string>
     <string name="no_internet">No internet connection</string>
     <string name="ok" translatable="false">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="internet_message">Enable Wi-fi connection?</string>
     <string name="write_file_err">Can not save data on external storage</string>
     <string name="file_not_found">Impossible to restore data. File not found</string>
+    <string name="selected"> selected</string>
+    <string name="db_err">Error writing to the database</string>
+    <string name="title">Error</string>
+    <string name="delete">Delete</string>
+    <string name="delete_ask">Do you really want to delete selected items?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="db_insert">from 50 rows is inserted</string>
 </resources>

@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 
-public class RSSItemList {
+public class RssItemList {
     @SerializedName("item")
-    private List<RSSItem> rssItems;
-    public List<RSSItem> getRssItems(){ return rssItems; }
+    private List<RssItem> rssItems;
+    public List<RssItem> getRssItems(){ return rssItems; }
 
 }
