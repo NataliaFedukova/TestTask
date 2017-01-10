@@ -1,4 +1,4 @@
-package com.fedukova.task.UI;
+package com.fedukova.task.interf;
 
 import android.content.Context;
 
@@ -9,15 +9,14 @@ import android.view.MenuItem;
 
 import com.fedukova.task.R;
 
-public abstract class ActionModeCallback implements ActionMode.Callback{
+public abstract class ActionModeCallback implements ActionMode.Callback {
 
     private Context mContext;
-    //private RecyclerViewAdapter mAdapter;
 
-    //public ActionModeCallback(Context context, RecyclerViewAdapter rvAdapter) {\
     public ActionModeCallback(Context context) {
         this.mContext = context;
     }
+
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         MenuInflater inflater = mode.getMenuInflater();
@@ -32,7 +31,6 @@ public abstract class ActionModeCallback implements ActionMode.Callback{
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        //mAdapter.deleteRows();
         onDeleteItems(mContext);
         return false;
     }
@@ -44,5 +42,6 @@ public abstract class ActionModeCallback implements ActionMode.Callback{
     }
 
     public abstract void onFinishActionMode();
+
     public abstract void onDeleteItems(Context context);
 }

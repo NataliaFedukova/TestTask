@@ -15,14 +15,14 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
-import com.fedukova.task.DAO.DaoRss;
-import com.fedukova.task.DAO.HelperFactory;
+import com.fedukova.task.daolayer.DaoRss;
+import com.fedukova.task.daolayer.HelperFactory;
 import com.fedukova.task.entity.RssItem;
 import com.fedukova.task.gson.GsonParser;
-import com.fedukova.task.UI.ActionModeCallback;
-import com.fedukova.task.UI.RecyclerItemTouchListener;
-import com.fedukova.task.UI.RecyclerListener;
-import com.fedukova.task.UI.RecyclerViewAdapter;
+import com.fedukova.task.interf.ActionModeCallback;
+import com.fedukova.task.interf.RecyclerItemTouchListener;
+import com.fedukova.task.interf.RecyclerListener;
+import com.fedukova.task.interf.RecyclerViewAdapter;
 import com.fedukova.task.R;
 import com.fedukova.task.services.DownloadService;
 import com.fedukova.task.services.DownloadService_;
@@ -38,7 +38,7 @@ import org.androidannotations.annotations.WindowFeature;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 @Fullscreen
 @EActivity(R.layout.activity_rss)
@@ -48,11 +48,10 @@ public class RssActivity extends AppCompatActivity {
 
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerViewAdapter mAdapter;
-    private ArrayList<RssItem> mItems;
+    private List<RssItem> mItems;
     private ActionMode mActionMode;
 
     private boolean mIsActionModeOn = false;
-    //private RssCrud rssCrud;
 
     @Extra
     String path;
@@ -69,16 +68,16 @@ public class RssActivity extends AppCompatActivity {
     @ViewById(R.id.refresh_button)
     protected ImageButton mRefreshButton;
 
-   @Click(R.id.refresh_button)
-    public void refreshButton(){
+    @Click(R.id.refresh_button)
+    public void refreshButton() {
         mRefreshProgress.setVisibility(View.VISIBLE);
-        DownloadService_.intent(this).extra("path",path).start();
+        DownloadService_.intent(this).extra("path", path).start();
         mRefreshButton.setEnabled(false);
     }
 
-    @Receiver(actions = "com.fedukova.task.services.result",registerAt = Receiver.RegisterAt.OnStartOnStop)
-    void takeResult(@Receiver.Extra int result, Context context)  {
-        if(result == DownloadService.FILE_DOWNLOAD_SUCSESS) {
+    @Receiver(actions = "com.fedukova.task.services.result", registerAt = Receiver.RegisterAt.OnStartOnStop)
+    void takeResult(@Receiver.Extra int result, Context context) {
+        if (result == DownloadService.FILE_DOWNLOAD_SUCSESS) {
             mItems.clear();
             try {
                 mItems.addAll(GsonParser.takeRssListFromJson(path));
@@ -86,8 +85,7 @@ public class RssActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             mAdapter.setRssItems(mItems);
-        }
-        else startDialog(result);
+        } else startDialog(result);
         mRefreshButton.setEnabled(true);
         mRefreshProgress.setVisibility(View.INVISIBLE);
     }
@@ -100,7 +98,7 @@ public class RssActivity extends AppCompatActivity {
                 confirmDialog.setMessage(R.string.no_internet);
                 break;
             case DownloadService.FILE_DOWNLOAD_FAIL:
-                    confirmDialog.setMessage(R.string.write_file_err);
+                confirmDialog.setMessage(R.string.write_file_err);
                 break;
         }
         confirmDialog.setNeutralButton(R.string.ok, null);
@@ -109,21 +107,15 @@ public class RssActivity extends AppCompatActivity {
     }
 
     @AfterViews
-    protected void init()  {
+    protected void init() {
         HelperFactory.setHelper(this);
         getSupportActionBar().hide();
         try {
             DaoRss daoRss = HelperFactory.getHelper().getRSSDao();
-            mItems = (ArrayList<RssItem>) daoRss.getAllItems();
+            mItems = daoRss.getAllItems();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        /*rssCrud = new RssCrud(getApplicationContext());
-        try {
-            mItems = (ArrayList<RssItem>) rssCrud.read();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mAdapter = new RecyclerViewAdapter();
@@ -134,7 +126,7 @@ public class RssActivity extends AppCompatActivity {
                 //If ActionMode not null select item
                 if (mIsActionModeOn)
                     onListItemSelect(position);
-                else{
+                else {
                     Uri address = Uri.parse(mItems.get(position).getLink());
                     Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
                     view.getContext().startActivity(openlinkIntent);
@@ -144,7 +136,7 @@ public class RssActivity extends AppCompatActivity {
             @Override
             public void onLongClick(View view, int position) {
                 //Select item on long click
-                if(!mIsActionModeOn) onListItemSelect(position);
+                if (!mIsActionModeOn) onListItemSelect(position);
             }
         }));
         mAdapter.setRssItems(mItems);
@@ -173,7 +165,7 @@ public class RssActivity extends AppCompatActivity {
                             .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    mAdapter.deleteRows();
+                                    mAdapter.deleteItemsFromAdapter();
                                     mActionMode.finish();
 
                                 }
@@ -188,15 +180,14 @@ public class RssActivity extends AppCompatActivity {
                     confirmDialog.show();
                 }
             });
-        }
-        else if (!hasCheckedItems && mIsActionModeOn)  // there no selected items, finish the actionMode
+        } else if (!hasCheckedItems && mIsActionModeOn)  // there no selected items, finish the actionMode
             mActionMode.finish();
         if (mActionMode != null) //set action mode title on item selection
             mActionMode.setTitle(String.valueOf(mAdapter.getSelectedCount()) + getResources().getString(R.string.selected));
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         HelperFactory.releaseHelper();
         super.onPause();
     }

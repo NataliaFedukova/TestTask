@@ -1,4 +1,4 @@
-package com.fedukova.task.UI;
+package com.fedukova.task.interf;
 
 
 import android.content.Context;
@@ -7,10 +7,10 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-/**Listener on list item in rss
- *
+/**
+ * Listener on list item in rss
  */
-public class RecyclerItemTouchListener implements RecyclerView.OnItemTouchListener{
+public class RecyclerItemTouchListener implements RecyclerView.OnItemTouchListener {
 
     private GestureDetector mGestureDetector;
     private RecyclerListener mClickListener;

@@ -9,20 +9,20 @@ import java.net.URL;
 
 public class DownloadByURL {
 
-    /**downloading file by URL and save it in path
-     * @param url - URL
+    /**
+     * downloading file by URL and save it in path
+     *
+     * @param url  - URL
      * @param path - PATH
      * @return true if OK, and false if not
      */
     public static void loadFileOnSD(String url, String path) throws ConnectionFailException, IOException {
         {
-
             URL url_ = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) url_.openConnection();
             try {
                 connection.connect();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 throw new ConnectionFailException();
             }
             InputStream inputStream = null;
@@ -36,14 +36,12 @@ public class DownloadByURL {
                     fileOutputStream.write(buffer, 0, bytesRead);
                 }
                 connection.disconnect();
-            }
-            finally {
-                if(fileOutputStream != null)
-                {
+            } finally {
+                if (fileOutputStream != null) {
                     fileOutputStream.flush();
                     fileOutputStream.close();
                 }
-                if(inputStream != null)
+                if (inputStream != null)
                     inputStream.close();
             }
         }

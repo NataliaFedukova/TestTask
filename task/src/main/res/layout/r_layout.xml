@@ -3,4 +3,7 @@
     android:background="@drawable/shape_state_selector"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
+    <TextView
+        android:id="@+id/titleViewId"
+        style="@style/TextStyle" />
 </RelativeLayout>

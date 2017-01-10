@@ -29,16 +29,13 @@ public class DownloadService extends IntentService {
         String path = intent.getStringExtra("path");
         try {
             DownloadByURL.loadFileOnSD(URL, path);
-            backIntent.putExtra("result",FILE_DOWNLOAD_SUCSESS);
-        }catch (ConnectionFailException cfe){
-            backIntent.putExtra("result",INTERNET_CONNECTION_FAIL);
-        }
-        catch (IOException e) {
-            backIntent.putExtra("result",FILE_DOWNLOAD_FAIL);
-        }
-        finally {
+            backIntent.putExtra("result", FILE_DOWNLOAD_SUCSESS);
+        } catch (ConnectionFailException cfe) {
+            backIntent.putExtra("result", INTERNET_CONNECTION_FAIL);
+        } catch (IOException e) {
+            backIntent.putExtra("result", FILE_DOWNLOAD_FAIL);
+        } finally {
             sendBroadcast(backIntent);
         }
-
     }
 }

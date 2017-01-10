@@ -1,4 +1,4 @@
-package com.fedukova.task.UI;
+package com.fedukova.task.interf;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,6 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.TextView;
 
 import com.fedukova.task.entity.RssItem;
 import com.fedukova.task.R;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //работа со списком
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RSSItemView>{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RssItemView> {
 
     private List<RssItem> mContent;
     private SparseBooleanArray mSelectedItemsIds;
@@ -30,23 +28,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public RSSItemView onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RssItemView onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rss_list_item, parent, false);
-        return new RSSItemView(view);
+        return new RssItemView(view);
     }
 
     @Override
-    public void onBindViewHolder(final RSSItemView holder, final int position) {
+    public void onBindViewHolder(final RssItemView holder, final int position) {
         final RssItem item = mContent.get(position);
         holder.titleTextView.setText(Html.fromHtml(item.getTitle()));
         holder.descriptionTextView.setText(item.getDescription());
         holder.snapshotView.loadUrl(item.getLink());
-        holder.itemView.setSelected(mSelectedItemsIds.get(position) ? true : false);
+        boolean isItemSelected = mSelectedItemsIds.get(position);
+        holder.itemView.setSelected(isItemSelected);
     }
 
-    public void setRssItems(ArrayList<RssItem> newContent){
-        if(!mContent.isEmpty()){ mContent.clear();}
+    public void setRssItems(List<RssItem> newContent) {
+        if (!mContent.isEmpty()) {
+            mContent.clear();
+        }
         mContent.addAll(newContent);
         notifyDataSetChanged();
     }
@@ -74,7 +75,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mSelectedItemsIds.size();
     }
 
-    public boolean isAnyItemSelected(){
+    public boolean isAnyItemSelected() {
         return getSelectedCount() > 0;
     }
 
@@ -89,7 +90,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     //Delete selected rows
-    public void deleteRows() {
+    public void deleteItemsFromAdapter() {
         SparseBooleanArray selected = getSelectedIds();//Get selected ids
         //Loop all selected ids
         for (int i = (selected.size() - 1); i >= 0; i--) {
@@ -102,19 +103,4 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public class RSSItemView extends RecyclerView.ViewHolder {
-        TextView titleTextView;
-        TextView descriptionTextView;
-        WebView snapshotView;
-        View webTopView;
-
-        public RSSItemView(final View itemView) {
-            super(itemView);
-            titleTextView = (TextView) itemView.findViewById(R.id.title_text_view);
-            descriptionTextView = (TextView) itemView.findViewById(R.id.description_text_view);
-            snapshotView = (WebView) itemView.findViewById(R.id.preview_web_view);
-            webTopView = itemView.findViewById(R.id.web_top_view);
-            webTopView.setOnClickListener(null);
-        }
-    }
 }

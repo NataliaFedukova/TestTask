@@ -19,7 +19,7 @@ public class DaoDBHelper extends OrmLiteSqliteOpenHelper {
 
     private DaoRss mRssDao = null;
 
-    DaoDBHelper(Context context) {
+    public DaoDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION, R.raw.ormlite_config);
     }
 
@@ -45,7 +45,8 @@ public class DaoDBHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public DaoRss getRSSDao() throws SQLException {
-        if(mRssDao == null)  mRssDao = new DaoRss(getConnectionSource(), RssItem.class);;
+        if (mRssDao == null) mRssDao = new DaoRss(getConnectionSource(), RssItem.class);
+        ;
         return mRssDao;
     }
 
