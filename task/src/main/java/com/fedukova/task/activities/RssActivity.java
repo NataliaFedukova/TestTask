@@ -35,9 +35,11 @@ import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
+import org.androidannotations.annotations.res.StringArrayRes;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Fullscreen
@@ -88,22 +90,6 @@ public class RssActivity extends AppCompatActivity {
         } else startDialog(result);
         mRefreshButton.setEnabled(true);
         mRefreshProgress.setVisibility(View.INVISIBLE);
-    }
-
-    private void startDialog(int var) {
-        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
-        confirmDialog.setTitle(R.string.title);
-        switch (var) {
-            case DownloadService.INTERNET_CONNECTION_FAIL:
-                confirmDialog.setMessage(R.string.no_internet);
-                break;
-            case DownloadService.FILE_DOWNLOAD_FAIL:
-                confirmDialog.setMessage(R.string.write_file_err);
-                break;
-        }
-        confirmDialog.setNeutralButton(R.string.ok, null);
-        confirmDialog.create();
-        confirmDialog.show();
     }
 
     @AfterViews
@@ -165,7 +151,11 @@ public class RssActivity extends AppCompatActivity {
                             .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    List<Integer> positions = new ArrayList<Integer>();
+                                    positions.addAll(mAdapter.getSelectedPositions());
+                                    int count = deleteFromDb(positions);
                                     mAdapter.deleteItemsFromAdapter();
+                                    deletedItemsDialog(count, positions.size());
                                     mActionMode.finish();
 
                                 }
@@ -190,5 +180,42 @@ public class RssActivity extends AppCompatActivity {
     public void onPause() {
         HelperFactory.releaseHelper();
         super.onPause();
+    }
+
+    private int deleteFromDb(List<Integer> pos) {
+        int count = 0;
+        for (int i = 0; i < pos.size();i++){
+            try {
+                DaoRss daoRss = HelperFactory.getHelper().getRSSDao();
+                count += daoRss.deleteItem(mItems.get(pos.get(i)));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return count;
+    }
+    private void startDialog(int var) {
+        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
+        confirmDialog.setTitle(R.string.title);
+        switch (var) {
+            case DownloadService.INTERNET_CONNECTION_FAIL:
+                confirmDialog.setMessage(R.string.no_internet);
+                break;
+            case DownloadService.FILE_DOWNLOAD_FAIL:
+                confirmDialog.setMessage(R.string.write_file_err);
+                break;
+        }
+        confirmDialog.setNeutralButton(R.string.ok, null);
+        confirmDialog.create();
+        confirmDialog.show();
+    }
+    private void deletedItemsDialog(int countDeleted, int countAll) {
+        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
+        confirmDialog.setTitle(R.string.delete_dialog_title)
+                .setMessage(String.valueOf(countDeleted) + " " + getResources().getString(R.string.from)
+                + " " + String.valueOf(countAll) + " " + getResources().getString(R.string.items_deleted));
+        confirmDialog.setNeutralButton(R.string.ok, null);
+        confirmDialog.create();
+        confirmDialog.show();
     }
 }

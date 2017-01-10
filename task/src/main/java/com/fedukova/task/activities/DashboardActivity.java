@@ -49,7 +49,7 @@ public class DashboardActivity extends AppCompatActivity {
             daoRss.deleteAllItems();
             int count = daoRss.setAllItems(list);
 
-            startDialog(String.valueOf(count) + getResources().getString(R.string.db_insert));
+            startDialog(String.valueOf(count) + " " + getResources().getString(R.string.db_insert));
 
         } catch (SQLException e) {
             startDialog(getResources().getString(R.string.db_err));

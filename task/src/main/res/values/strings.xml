@@ -15,4 +15,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="db_insert">from 50 rows is inserted</string>
+    <string name="delete_dialog_title">Deleted</string>
+    <string name="from">from</string>
+    <string name="items_deleted">items deleted.</string>
 </resources>

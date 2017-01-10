@@ -102,5 +102,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RssItemView> {
             }
         }
     }
+    
+    public List<Integer> getSelectedPositions()
+    {
+        SparseBooleanArray selected = getSelectedIds();
+        List<Integer> positions = new ArrayList<>();
+        for (int i = (selected.size() - 1); i >= 0; i--) {
+            if (selected.valueAt(i)) {
+                positions.add(selected.keyAt(i));
+            }
+        }
+        return positions;
+    }
 
 }

@@ -11,5 +11,8 @@
     <string name="delete_ask">Вы действительно хотите удалить выбранные записи?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
-    <string name="db_insert">" из 50 записей добавлено"</string>
+    <string name="db_insert">из 50 записей добавлено</string>
+    <string name="from">из</string>
+    <string name="delete_dialog_title">Удалено</string>
+    <string name="items_deleted">записей удалено</string>
 </resources>
