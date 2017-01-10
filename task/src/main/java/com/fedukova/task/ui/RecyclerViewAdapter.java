@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fedukova.task.entity.RssItem;
+import com.fedukova.task.entity.Item;
 import com.fedukova.task.R;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.List;
 //работа со списком
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RssItemView> {
 
-    private List<RssItem> mContent;
+    private List<Item> mContent;
     private SparseBooleanArray mSelectedItemsIds;
     private Context context;
 
@@ -36,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RssItemView> {
 
     @Override
     public void onBindViewHolder(final RssItemView holder, final int position) {
-        final RssItem item = mContent.get(position);
+        final Item item = mContent.get(position);
         holder.titleTextView.setText(Html.fromHtml(item.getTitle()));
         holder.descriptionTextView.setText(item.getDescription());
         holder.snapshotView.loadUrl(item.getLink());
@@ -44,7 +44,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RssItemView> {
         holder.itemView.setSelected(isItemSelected);
     }
 
-    public void setRssItems(List<RssItem> newContent) {
+    public void setRssItems(List<Item> newContent) {
         if (!mContent.isEmpty()) {
             mContent.clear();
         }

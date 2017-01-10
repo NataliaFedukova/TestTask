@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class RssItemList {
+public class ItemList {
 
     @SerializedName("item")
-    private List<RssItem> rssItems;
+    private List<Item> rssItems;
 
-    public List<RssItem> getRssItems() {
+    public List<Item> getRssItems() {
         return rssItems;
     }
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.fedukova.task.R;
-import com.fedukova.task.entity.RssItem;
+import com.fedukova.task.entity.Item;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
@@ -26,7 +26,7 @@ public class DaoDBHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable(connectionSource, RssItem.class);
+            TableUtils.createTable(connectionSource, Item.class);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class DaoDBHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            TableUtils.dropTable(connectionSource, RssItem.class, false);
+            TableUtils.dropTable(connectionSource, Item.class, false);
             onCreate(database, connectionSource);
 
         } catch (SQLException e) {
@@ -45,7 +45,7 @@ public class DaoDBHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public DaoRss getRSSDao() throws SQLException {
-        if (mRssDao == null) mRssDao = new DaoRss(getConnectionSource(), RssItem.class);
+        if (mRssDao == null) mRssDao = new DaoRss(getConnectionSource(), Item.class);
         ;
         return mRssDao;
     }

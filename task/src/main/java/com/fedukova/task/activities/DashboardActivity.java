@@ -7,7 +7,7 @@ import android.view.Window;
 
 import com.fedukova.task.daolayer.DaoRss;
 import com.fedukova.task.daolayer.HelperFactory;
-import com.fedukova.task.entity.RssItem;
+import com.fedukova.task.entity.Item;
 import com.fedukova.task.gson.GsonParser;
 import com.fedukova.task.R;
 
@@ -44,7 +44,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Click(R.id.go_to_restore)
     protected void restoreData() {
         try {
-            List<RssItem> list = GsonParser.takeRssListFromJson(mPath + File.separator + FILE_NAME);
+            List<Item> list = GsonParser.takeRssListFromJson(mPath + File.separator + FILE_NAME);
             DaoRss daoRss = HelperFactory.getHelper().getRSSDao();
             daoRss.deleteAllItems();
             int count = daoRss.setAllItems(list);

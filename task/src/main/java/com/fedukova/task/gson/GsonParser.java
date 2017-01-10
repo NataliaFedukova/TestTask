@@ -3,8 +3,8 @@ package com.fedukova.task.gson;
 import android.annotation.TargetApi;
 import android.os.Build;
 
-import com.fedukova.task.entity.RssItem;
-import com.fedukova.task.entity.RssItemList;
+import com.fedukova.task.entity.Item;
+import com.fedukova.task.entity.ItemList;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.internal.bind.TypeAdapters;
@@ -19,13 +19,13 @@ import java.util.List;
 
 public class GsonParser {
 
-    public static List<RssItem> takeRssListFromJson(String path) throws IOException {
-        List<RssItem> items = new ArrayList<>();
+    public static List<Item> takeRssListFromJson(String path) throws IOException {
+        List<Item> items = new ArrayList<>();
         Gson gson = new Gson();
-        RssItemList jsonElements = null;
+        ItemList jsonElements = null;
         try {
             JsonObject jo = extractJsonFromFile(new File(path));
-            jsonElements = gson.fromJson(jo, RssItemList.class);
+            jsonElements = gson.fromJson(jo, ItemList.class);
         } finally {
         }
         items.addAll(jsonElements.getRssItems());
