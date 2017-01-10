@@ -172,7 +172,7 @@ public class RssActivity extends AppCompatActivity {
         } else if (!hasCheckedItems && mIsActionModeOn)  // there no selected items, finish the actionMode
             mActionMode.finish();
         if (mActionMode != null) //set action mode title on item selection
-            mActionMode.setTitle(String.valueOf(mAdapter.getSelectedCount()) + getResources().getString(R.string.selected));
+            mActionMode.setTitle(String.valueOf(mAdapter.getSelectedCount()) + " " + getResources().getString(R.string.selected));
     }
 
     @Override
@@ -187,6 +187,7 @@ public class RssActivity extends AppCompatActivity {
             try {
                 DaoRss daoRss = HelperFactory.getHelper().getRSSDao();
                 count += daoRss.deleteItem(mItems.get(pos.get(i)));
+                mItems.remove(pos.get(i));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
