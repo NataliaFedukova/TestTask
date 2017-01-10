@@ -2,7 +2,7 @@ package com.fedukova.task.daolayer;
 
 import android.content.Context;
 
-import com.fedukova.task.entity.Item;
+import com.fedukova.task.entity.RssItem;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class RssCrud implements Crud{
     public int create(List<?> list) throws SQLException {
         int count = 0;
         for(int i = 0; i < list.size(); i++){
-            Item item = (Item) list.get(i);
+            RssItem item = (RssItem) list.get(i);
             int res = mHelper.getRSSDao().create(item);
             if(res == 1 )
                 count++;
@@ -33,8 +33,8 @@ public class RssCrud implements Crud{
 
     @Override
     public List<?> read() throws SQLException {
-        ArrayList<Item> list = new ArrayList<>();
-        List<Item> rs = mHelper.getRSSDao().queryForAll();
+        ArrayList<RssItem> list = new ArrayList<>();
+        List<RssItem> rs = mHelper.getRSSDao().queryForAll();
         list.addAll(rs);
         return list;
     }
@@ -48,14 +48,14 @@ public class RssCrud implements Crud{
     public int delete(List<?> list) throws SQLException {
         int count = 0;
         for(int i = 0; i < list.size(); i++){
-            Item item = (Item) list.get(i);
+            RssItem item = (RssItem) list.get(i);
             int res = mHelper.getRSSDao().delete(item);
             count++;
         }
         return count;
     }
     public int clear() throws SQLException {
-        List<Item> rs = mHelper.getRSSDao().queryForAll();
+        List<RssItem> rs = mHelper.getRSSDao().queryForAll();
         int count = 0;
         if (rs.size() != 0) {
             count = mHelper.getRSSDao().delete(rs);

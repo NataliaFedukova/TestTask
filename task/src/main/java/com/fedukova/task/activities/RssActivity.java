@@ -17,15 +17,15 @@ import android.widget.ProgressBar;
 
 import com.fedukova.task.daolayer.DaoRss;
 import com.fedukova.task.daolayer.HelperFactory;
-import com.fedukova.task.entity.Item;
+import com.fedukova.task.entity.RssItem;
 import com.fedukova.task.gson.GsonParser;
+import com.fedukova.task.R;
+import com.fedukova.task.services.DownloadService;
+import com.fedukova.task.services.DownloadService_;
 import com.fedukova.task.ui.ActionModeCallback;
 import com.fedukova.task.ui.RecyclerItemTouchListener;
 import com.fedukova.task.ui.RecyclerListener;
 import com.fedukova.task.ui.RecyclerViewAdapter;
-import com.fedukova.task.R;
-import com.fedukova.task.services.DownloadService;
-import com.fedukova.task.services.DownloadService_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -49,7 +49,7 @@ public class RssActivity extends AppCompatActivity {
 
     private LinearLayoutManager mLinearLayoutManager;
     private RecyclerViewAdapter mAdapter;
-    private List<Item> mItems;
+    private List<RssItem> mItems;
     private ActionMode mActionMode;
 
     private boolean mIsActionModeOn = false;
