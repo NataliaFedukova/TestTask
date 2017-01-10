@@ -1,4 +1,4 @@
-package com.fedukova.task.interf;
+package com.fedukova.task.ui;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

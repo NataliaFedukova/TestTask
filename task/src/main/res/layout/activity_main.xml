@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <com.fedukova.task.interf.CustomRelativeLayout
+    <com.fedukova.task.ui.CustomRelativeLayout
         android:id="@+id/go_to_rss"
         app:layout_heightPercent="30%"
         app:layout_marginLeftPercent="5%"
@@ -13,9 +13,9 @@
         app:layout_widthPercent="90%"
         app:textValue="@string/rss">
 
-    </com.fedukova.task.interf.CustomRelativeLayout>
+    </com.fedukova.task.ui.CustomRelativeLayout>
 
-    <com.fedukova.task.interf.CustomRelativeLayout
+    <com.fedukova.task.ui.CustomRelativeLayout
         android:id="@+id/go_to_restore"
         android:layout_alignStart="@+id/go_to_rss"
         android:layout_below="@+id/go_to_rss"
@@ -24,9 +24,9 @@
         app:layout_widthPercent="43%"
         app:textValue="@string/restore">
 
-    </com.fedukova.task.interf.CustomRelativeLayout>
+    </com.fedukova.task.ui.CustomRelativeLayout>
 
-    <com.fedukova.task.interf.CustomRelativeLayout
+    <com.fedukova.task.ui.CustomRelativeLayout
         android:id="@+id/go_to_exit"
         android:layout_alignEnd="@+id/go_to_rss"
         android:layout_alignRight="@+id/go_to_rss"
@@ -36,6 +36,6 @@
         app:layout_widthPercent="43%"
         app:textValue="@string/exit">
 
-    </com.fedukova.task.interf.CustomRelativeLayout>
+    </com.fedukova.task.ui.CustomRelativeLayout>
 
 </android.support.percent.PercentRelativeLayout>

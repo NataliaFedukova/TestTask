@@ -19,10 +19,10 @@ import com.fedukova.task.daolayer.DaoRss;
 import com.fedukova.task.daolayer.HelperFactory;
 import com.fedukova.task.entity.RssItem;
 import com.fedukova.task.gson.GsonParser;
-import com.fedukova.task.interf.ActionModeCallback;
-import com.fedukova.task.interf.RecyclerItemTouchListener;
-import com.fedukova.task.interf.RecyclerListener;
-import com.fedukova.task.interf.RecyclerViewAdapter;
+import com.fedukova.task.ui.ActionModeCallback;
+import com.fedukova.task.ui.RecyclerItemTouchListener;
+import com.fedukova.task.ui.RecyclerListener;
+import com.fedukova.task.ui.RecyclerViewAdapter;
 import com.fedukova.task.R;
 import com.fedukova.task.services.DownloadService;
 import com.fedukova.task.services.DownloadService_;
@@ -35,7 +35,6 @@ import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
-import org.androidannotations.annotations.res.StringArrayRes;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -184,7 +183,7 @@ public class RssActivity extends AppCompatActivity {
 
     private int deleteFromDb(List<Integer> pos) {
         int count = 0;
-        for (int i = 0; i < pos.size();i++){
+        for (int i = 0; i < pos.size(); i++) {
             try {
                 DaoRss daoRss = HelperFactory.getHelper().getRSSDao();
                 count += daoRss.deleteItem(mItems.get(pos.get(i)));
@@ -194,6 +193,7 @@ public class RssActivity extends AppCompatActivity {
         }
         return count;
     }
+
     private void startDialog(int var) {
         AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
         confirmDialog.setTitle(R.string.title);
@@ -209,11 +209,12 @@ public class RssActivity extends AppCompatActivity {
         confirmDialog.create();
         confirmDialog.show();
     }
+
     private void deletedItemsDialog(int countDeleted, int countAll) {
         AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
         confirmDialog.setTitle(R.string.delete_dialog_title)
                 .setMessage(String.valueOf(countDeleted) + " " + getResources().getString(R.string.from)
-                + " " + String.valueOf(countAll) + " " + getResources().getString(R.string.items_deleted));
+                        + " " + String.valueOf(countAll) + " " + getResources().getString(R.string.items_deleted));
         confirmDialog.setNeutralButton(R.string.ok, null);
         confirmDialog.create();
         confirmDialog.show();

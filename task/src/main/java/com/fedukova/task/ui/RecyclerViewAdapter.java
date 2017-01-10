@@ -1,4 +1,4 @@
-package com.fedukova.task.interf;
+package com.fedukova.task.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -102,9 +102,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RssItemView> {
             }
         }
     }
-    
-    public List<Integer> getSelectedPositions()
-    {
+
+    public List<Integer> getSelectedPositions() {
         SparseBooleanArray selected = getSelectedIds();
         List<Integer> positions = new ArrayList<>();
         for (int i = (selected.size() - 1); i >= 0; i--) {
